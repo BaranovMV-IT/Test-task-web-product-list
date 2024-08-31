@@ -8,6 +8,14 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/catalog',
     component: () => import('../pages/CatalogPage.vue')
+  },
+  {
+    path: '/add_product',
+    component: () => import('../pages/AddProductPage.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/'
   }
 ]
 

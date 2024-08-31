@@ -7,6 +7,8 @@ interface productListItem {
   integration: 'reels' | 'stories';
 }
 
+export { productListItem }
+
 export default createStore({
   state: {
     productList: [] as productListItem[]
