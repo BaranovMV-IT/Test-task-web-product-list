@@ -21,5 +21,10 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+}
+
+span {
+  white-space: nowrap;
 }
 </style>
