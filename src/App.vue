@@ -11,6 +11,7 @@ import { useStore } from 'vuex';
 const store = useStore();
 
 onBeforeMount(async () => {
+  // Если все товары будут удалены, то при перезагрузке страницы, они вернутся в первоначальное состояние. 
   const locStore = localStorage.getItem('productList');
   if(locStore && locStore != '[]'){
     await store.dispatch('readProductListFromStorage');
@@ -65,6 +66,8 @@ onBeforeMount(async () => {
   overflow: hidden;
 }
 span {
+  text-overflow: ellipsis;
+  overflow: hidden; 
   white-space: nowrap;
 }
 

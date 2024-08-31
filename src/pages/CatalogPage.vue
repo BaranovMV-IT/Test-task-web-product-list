@@ -23,8 +23,18 @@
             </div>
           </div>
           <div class="page__main__list__item__controls">
-            <button class="page__main__list__item__controls__edit  clear_button_style" @click="$router.push(`/add_product?id=${item.id}`)">&#9998;</button>
-            <button class="page__main__list__item__controls__remove  clear_button_style" @click="store.dispatch('removeItemFromProductList',item.id)">&#215;</button>
+            <button 
+              class="page__main__list__item__controls__edit  clear_button_style" 
+              @click="$router.push(`/add_product?id=${item.id}`)"
+            >
+              &#9998;
+            </button>
+            <button 
+              class="page__main__list__item__controls__remove  clear_button_style" 
+              @click="store.dispatch('removeItemFromProductList',item.id)"
+            >
+              &#215;
+            </button>
           </div>
         </div>
         <div class="page__main__list__pagination">
@@ -42,11 +52,26 @@
       <div class="page__main__controls">
         <span class="page__main__controls__title">Меню управления</span>
         <span class="page__main__controls__subtitle">Новый товар</span>
-        <button class="page__main__controls__add-button  clear_button_style" @click="$router.push('/add_product')">Добавить</button>
+        <button 
+          class="page__main__controls__add-button  clear_button_style" 
+          @click="$router.push('/add_product')"
+        >
+          Добавить
+        </button>
         <span class="page__main__controls__subtitle">Сортировка по названию</span>
-        <SelectComponent v-model="selectedSort" :sel="selectedSort" :options="sortOptions" />
+        <SelectComponent 
+          class="sel" 
+          v-model="selectedSort" 
+          :sel="selectedSort" 
+          :options="sortOptions" 
+        />
         <span class="page__main__controls__subtitle">Фильтрация по способу интеграции</span>
-        <SelectComponent v-model="selectedFilter" :sel="selectedFilter" :options="filterOptions" />
+        <SelectComponent 
+          class="sel" 
+          v-model="selectedFilter" 
+          :sel="selectedFilter" 
+          :options="filterOptions" 
+        />
       </div>
     </div>
   </div>
@@ -73,6 +98,7 @@ const filterOptions = [
 let selectedSort = ref<string>();
 let selectedFilter = ref<string>();
 
+// Кэшируемая переменная с фильтрацией, пагинацией и сортировкой.
 const getReviewsData = computed(() => {
   let prodList = store.state.productList ? [...store.state.productList] : [];
 
@@ -93,6 +119,7 @@ const getReviewsData = computed(() => {
 })
 
 onMounted(()=>{
+  // Устанавливаем значения селектов по-умолчанию.
   selectedSort.value = sortOptions[0].value;
   selectedFilter.value = filterOptions[0].value;
 })
@@ -214,7 +241,7 @@ $mainDarkOrange: rgb(211, 67, 0);
           justify-content: center;
           align-items: center;
           width: 50px;
-          height: 50px;
+          aspect-ratio: 1/1;
           margin-right: 5px;
           color: rgb(223, 223, 225);
           background-color: $mainOrange;
@@ -273,5 +300,158 @@ $mainDarkOrange: rgb(211, 67, 0);
   font-weight: 600;
   text-decoration: underline;
   background-color: $mainDarkOrange;
+}
+
+@media (max-width: 1500px) {
+  .page {
+    padding: 70px 0px 70px 0px;
+    width: 1200px;
+  }
+  .page__title {
+    font-size: 45px;
+  }
+  .page__main__list__item__controls__edit {
+    aspect-ratio: 3 / 4;
+  }
+  .page__main__list__item__controls__remove {
+    aspect-ratio: 3 / 4;
+  }
+}
+@media (max-width: 1230px) {
+  .page {
+    padding: 50px 0px 50px 0px;
+    width: 960px;
+  }
+  .page__main__list__item__controls__edit {
+    aspect-ratio: 2 / 3;
+  }
+  .page__main__list__item__controls__remove {
+    aspect-ratio: 2 / 3;
+  }
+}
+@media (max-width: 1020px) {
+  .page {
+    padding: 40px 0px 40px 0px;
+    width: 95%;
+  }
+  .page__main {
+    flex-direction: column-reverse;
+  }
+  .page__main__controls {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: $blockMargin;
+    &__title {
+      font-size: 28px;
+    }
+    &__subtitle {
+      font-size: 18px;
+    }
+  }
+  .page__title {
+    font-size: 40px;
+  }
+  .page__main__list__item {
+    height: 85px;
+  }
+  .page__main__list__item__data__info__title {
+    font-size: 25px;
+    margin-bottom: 0;
+  }
+  .page__main__list__item__controls__edit {
+    aspect-ratio: 3 / 4;
+  }
+  .page__main__list__item__controls__remove {
+    aspect-ratio: 3 / 4;
+  }
+}
+@media (max-width: 750px) {
+  .page {
+    padding: 25px 0px 25px 0px;
+  }
+  .page__main__controls {
+    &__title {
+      font-size: 25px;
+    }
+    &__subtitle {
+      font-size: 16px;
+    }
+  }
+  .page__title {
+    font-size: 35px;
+    margin-bottom: 20px;
+  }
+  .page__main__list__item {
+    height: 75px;
+    margin-bottom: 5px;
+    &__data {
+      padding: 5px;
+    }
+  }
+  .page__main__list__item__data__info {
+    margin-left: 7px;
+    &__title {
+      font-size: 20px;
+    }
+    &__subtitle {
+      font-size: 18px;
+    }
+  }
+  .page__main__list__item__controls__edit {
+    font-size: 25px;
+  }
+  .page__main__list__item__controls__remove {
+    font-size: 40px;
+  }
+}
+@media (max-width: 500px) {
+  .page {
+    padding: 15px 0px 15px 0px;
+  }
+  .page__main__controls {
+    padding: 10px;
+    &__title {
+      font-size: 20px;
+    }
+    &__add-button {
+      font-size: 18px;
+    }
+    &__subtitle {
+      font-size: 16px;
+    }
+    .sel {
+      font-size: 14px;
+      height: 40px;
+      padding: 0px 5px;
+    }
+  }
+  .page__title {
+    font-size: 30px;
+    margin-bottom: 15px;
+  }
+  .page__main__list {
+    padding: 0;
+    &__item {
+      height: 65px;
+      margin-bottom: 3px;
+      &__data {
+        padding: 3px;
+        &__info {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+  .page__main__list__pagination__item {
+    width: 40px;
+  }
+  .page__main__list__item__controls__edit {
+    font-size: 22px;
+    aspect-ratio: 2 / 3;
+  }
+  .page__main__list__item__controls__remove {
+    font-size: 35px;
+    aspect-ratio: 2 / 3;
+  }
 }
 </style>

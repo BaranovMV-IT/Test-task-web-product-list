@@ -21,6 +21,7 @@ export default createStore({
   getters: {
   },
   actions: {
+    // Записть товаров из localStorage.
     async readProductListFromStorage({commit}){
       try {
         if(localStorage.getItem("cart")){
@@ -32,23 +33,27 @@ export default createStore({
         console.log(e);
       }
     },
+    // Добавление нового товара.
     addItemToProductList({state, commit, dispatch}, newItem: productListItem){
       const productList: productListItem[] = [...state.productList, newItem];
       commit('setProductList', productList);
       dispatch('writeProductListToStorage');
     },
+    // Удаление существующего товара.
     removeItemFromProductList({state, commit, dispatch}, id: number){
       let productList: productListItem[] = [...state.productList];
       productList = productList.filter(item => item.id != id);
       commit('setProductList', productList);
       dispatch('writeProductListToStorage');
     },
+    // Обновление данных существующего товара.
     updateItemInProductList({state, commit, dispatch}, newItem: productListItem){
       let productList: productListItem[] = [...state.productList];
       productList = productList.map(item => item.id == newItem.id ? newItem : item);
       commit('setProductList', productList);
       dispatch('writeProductListToStorage');
     },
+    // Записть товаров в localStorage.
     writeProductListToStorage({state}){
       try {
         localStorage.setItem("productList", JSON.stringify(state.productList));

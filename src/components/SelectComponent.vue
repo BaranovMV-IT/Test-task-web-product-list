@@ -30,11 +30,13 @@ export default {
     }
   },
   watch: {
+    // Эмитим выбранное значение в родительский компонент.
     selectedOption(){
       this.$emit("update:modelValue", this.selectedOption);
     }
   },
   beforeUpdate(){
+    // Устанавливаем переданное значение по-умолчанию.
     if(this.sel){
       for(let optn of this.options){
         if(optn.value == this.sel){

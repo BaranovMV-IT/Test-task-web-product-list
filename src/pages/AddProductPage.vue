@@ -19,14 +19,19 @@
     </div>
     <div class="page__block">
       <span class="page__block__title">Способ интеграции</span>
-      <SelectComponent v-model="integration" :sel="integration" :options="options" />
+      <SelectComponent 
+        class="sel" 
+        v-model="integration" 
+        :sel="integration" 
+        :options="options" 
+      />
     </div>
     <button 
       class="page__block__button  clear_button_style" 
       @click="productAction()"
       :class="{button_disable: (name=='' || seller=='') || (route.query.id!=undefined && (name=='' || seller==''))}"
     >
-      {{ $route.query.id ? 'Обновить данные товара' : 'Добавить товар' }}
+      <span>{{ $route.query.id ? 'Обновить данные товара' : 'Добавить товар' }}</span>
     </button>
   </div>
 </template>
@@ -50,6 +55,7 @@ const options = [
   {value: 'stories', title: 'Stories'}
 ]
 
+// Получаем данные товара.
 const getProductById = () => {
   for(let item of store.state.productList){
     if(item.id == route.query.id){
@@ -66,6 +72,8 @@ const getProductById = () => {
   }
 }
 
+/* Если страница в "режиме" редактирования товара, то тогда вызываем  
+функцию обновления его данных, а если нет, то добовляем его. */
 const productAction = () => {
   if(product.value && route.query.id != undefined && name.value != '' && seller.value != '' && integration.value){
     const newProduct: productListItem = {
@@ -90,6 +98,7 @@ const productAction = () => {
 
 onMounted(() => {
   if(route.query.id){
+    // Если страница в "режиме" редактирования товара, то тогда получаем его данные.
     getProductById();
   } else {
     integration.value = options[0].value as 'reels';
@@ -157,6 +166,100 @@ $mainDarkOrange: rgb(211, 67, 0);
   cursor: default;
   &:hover {
     background-color: gray;
+  }
+}
+
+@media (max-width: 1500px) {
+  .page {
+    width: 1000px;
+    padding: 70px 0px 70px 0px;
+    &__title {
+      font-size: 45px;
+      margin-bottom: 20px;
+    }
+  }
+  .page__block__title {
+    font-size: 25px;
+  }
+}
+@media (max-width: 1000px) {
+  .page {
+    width: 95%;
+    padding: 50px 0px 50px 0px;
+    &__title {
+      font-size: 35px;
+      margin-bottom: 15px;
+    }
+  }
+  .page__block {
+    &__title {
+      font-size: 20px;
+    }
+    &__input {
+      font-size: 18px;
+      height: 45px;
+    }
+    &__button {
+      font-size: 20px;
+    }
+  }
+  .sel {
+    height: 45px;
+    padding: 0px 5px;
+  }
+}
+@media (max-width: 500px) {
+  .page {
+    padding: 35px 0px 35px 0px;
+    &__title {
+      font-size: 27px;
+      margin-bottom: 10px;
+    }
+  }
+  .page__block {
+    margin-bottom: 5px;
+    &__title {
+      font-size: 16px;
+    }
+    &__input {
+      font-size: 16px;
+      height: 40px;
+    }
+    &__button {
+      font-size: 18px;
+      margin-top: 10px;
+    }
+  }
+  .sel {
+    height: 40px;
+    padding: 0px 5px;
+  }
+}
+@media (max-width: 400px) {
+  .page {
+    padding: 15px 0px 15px 0px;
+    &__title {
+      font-size: 25px;
+      margin-bottom: 5px;
+    }
+  }
+  .page__block {
+    margin-bottom: 5px;
+    &__button {
+      font-size: 16px;
+    }
+    &__input {
+      font-size: 16px;
+      height: 35px;
+    }
+    &__button {
+      font-size: 16px;
+      margin-top: 10px;
+    }
+  }
+  .sel {
+    height: 35px;
+    padding: 0px 5px;
   }
 }
 </style>
